@@ -1,0 +1,10 @@
+---
+# defaults file for roles/openvpn
+vpn_server_name: "infovpn"
+vpn_key_name: "serverVPN"
+vpn_key_country: "EU"
+vpn_key_province: "FR"
+vpn_key_city: "Paris"
+vpn_key_org: "Jdoe"
+vpn_key_email: "jdoe@example.com"
+vpn_key_ou: "jdoe"
