@@ -1,0 +1,16 @@
+**/openrc.sh
+**/.env
+**/.venv
+**/venv
+**/.envrc
+**/.terraform/*
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+**/*.tfvars.json
+**/.terraformrc
+**/terraform.rc
+**/*.swp
+**/*.log
+**/.terraform.lock.hcl
+**/.vagrant
