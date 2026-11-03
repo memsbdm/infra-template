@@ -28,6 +28,16 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_openvpn_rule_v4" {
   security_group_id = openstack_networking_secgroup_v2.openvpn.id
 }
 
+resource "openstack_networking_secgroup_rule_v2" "secgroup_openvpn_rule_udp_v4" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 1194
+  port_range_max    = 1194
+  remote_ip_prefix  = "0.0.0.0/0"
+  security_group_id = openstack_networking_secgroup_v2.openvpn.id
+}
+
 resource "openstack_networking_secgroup_v2" "ssh-internal" {
   name        = "ssh-internal"
   description = "ssh-internal"

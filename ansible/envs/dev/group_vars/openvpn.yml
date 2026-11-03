@@ -8,3 +8,6 @@ vpn_key_city: "Paris"
 vpn_key_org: "Mehmet Badem"
 vpn_key_email: "mehmetbdm@outlook.fr"
 vpn_key_ou: "mems"
+vpn_user_list:
+  - mems
+destination_key: "/tmp/"
