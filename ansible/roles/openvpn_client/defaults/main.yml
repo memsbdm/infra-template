@@ -3,3 +3,4 @@
 vpn_user_list:
   - mems
 vpn_destination_key: "/tmp/"
+vpn_server_name: "infovpn"

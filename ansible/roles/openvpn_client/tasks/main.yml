@@ -3,6 +3,7 @@
 
 - name: "Create client - {{ item }}"
   include_tasks: create_client.yml
-  loop: "{{ vpn_user_list }}"
+  loop:
+    - "{{ vpn_user_list }}"
   tags:
     - fetch
