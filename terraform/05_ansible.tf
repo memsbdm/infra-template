@@ -4,6 +4,7 @@ resource "null_resource" "openvpn_server" {
   }
   provisioner "local-exec" {
     command = <<-EOT
+      sleep 20s;
       echo > /tmp/openvpn.ini;
       echo "[openvpn]" | tee -a /tmp/openvpn.ini;
       echo "openvpn ansible_host=${openstack_networking_floatingip_v2.floatip_1.address}" | tee -a /tmp/openvpn.ini;

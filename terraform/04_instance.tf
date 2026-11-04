@@ -18,7 +18,7 @@ resource "openstack_compute_instance_v2" "openvpn" {
     name = var.network_internal
   }
 
-  depends_on = [openstack_networking_subnet_v2.network_subnet, openstack_networking_secgroup_rule_v2.secgroup_openvpn_rule_v4]
+  depends_on = [module.network_internal, openstack_networking_secgroup_rule_v2.secgroup_openvpn_rule_v4]
 }
 
 resource "openstack_compute_floatingip_associate_v2" "fip_assoc" {
