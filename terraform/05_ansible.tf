@@ -7,12 +7,12 @@ resource "null_resource" "openvpn_server" {
       sleep 20s;
       echo > /tmp/openvpn.ini;
       echo "[openvpn]" | tee -a /tmp/openvpn.ini;
-      echo "openvpn ansible_host=${openstack_networking_floatingip_v2.floatip_1.address}" | tee -a /tmp/openvpn.ini;
+      echo "openvpn ansible_host=${module.openvpn.instance_external_ip}" | tee -a /tmp/openvpn.ini;
       ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u debian -i /tmp/openvpn.ini --private-key ~/.ssh/course ../ansible/openvpn_server.yml;
       rm -f /tmp/openvpn.ini;
     EOT
   }
-    depends_on = [openstack_compute_instance_v2.openvpn,openstack_networking_floatingip_v2.floatip_1,openstack_compute_floatingip_associate_v2.fip_assoc]
+    depends_on = [module.openvpn,module.network_internal]
 }
 
 resource "null_resource" "create_new_vpn_client" {
@@ -26,11 +26,11 @@ resource "null_resource" "create_new_vpn_client" {
     command = <<-EOT
       echo > /tmp/openvpn.ini;
       echo "[openvpn]" | tee -a /tmp/openvpn.ini;
-      echo "openvpn ansible_host=${openstack_networking_floatingip_v2.floatip_1.address}" | tee -a /tmp/openvpn.ini;
+      echo "openvpn ansible_host=${module.openvpn.instance_external_ip}" | tee -a /tmp/openvpn.ini;
       ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u debian -i /tmp/openvpn.ini --private-key ~/.ssh/course -e vpn_user_list=${each.value} ../ansible/openvpn_client.yml;
       rm -f /tmp/openvpn.ini;
     EOT
   }
-  depends_on = [openstack_compute_instance_v2.openvpn,null_resource.openvpn_server,openstack_networking_floatingip_v2.floatip_1,openstack_compute_floatingip_associate_v2.fip_assoc]
+    depends_on = [null_resource.openvpn_server,module.openvpn,module.network_internal]
 }
 
