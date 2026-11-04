@@ -36,6 +36,10 @@ variable "metadatas" {
   }
 }
 
+variable "instance_ssh_key" {
+  type = string
+}
+
 variable "instance_network_internal" {
   type    = string
 }

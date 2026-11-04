@@ -15,6 +15,23 @@ resource "openstack_compute_instance_v2" "instance" {
   image_id        = var.instance_image_id
   flavor_name     = var.instance_flavor_name
   metadata        = var.metadatas
+  user_data       = <<-CLOUDCONFIG
+    #cloud-config
+    bootcmd:
+      - printf "[Resolve]\nDNS=8.8.8.8 1.1.1.1\n" > /etc/systemd/resolved.conf
+      - [systemctl, restart, systemd-resolved]
+    users:
+      - default
+      - name: mems
+        primary_group: mems
+        groups: [sudo,adm]
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        groups: sudo
+        shell: /bin/bash
+        lock_passwd: true
+        ssh-authorized-keys:
+        - ${var.instance_ssh_key}
+  CLOUDCONFIG
   security_groups = var.instance_security_groups
   key_pair        = var.instance_key_pair
   network {

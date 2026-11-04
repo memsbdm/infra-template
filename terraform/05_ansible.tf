@@ -8,7 +8,7 @@ resource "null_resource" "openvpn_server" {
       echo > /tmp/openvpn.ini;
       echo "[openvpn]" | tee -a /tmp/openvpn.ini;
       echo "${module.openvpn.instance_compute_name[0]} ansible_host=${module.openvpn.instance_external_ip_random[0]}" | tee -a /tmp/openvpn.ini;
-      ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u debian -i /tmp/openvpn.ini --private-key ~/.ssh/course ../ansible/openvpn_server.yml;
+      ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u mems -i /tmp/openvpn.ini --private-key ~/.ssh/course ../ansible/openvpn_server.yml;
       rm -f /tmp/openvpn.ini;
     EOT
   }
@@ -27,7 +27,7 @@ resource "null_resource" "create_new_vpn_client" {
       echo > /tmp/openvpn.ini;
       echo "[openvpn]" | tee -a /tmp/openvpn.ini;
       echo "${module.openvpn.instance_compute_name[0]} ansible_host=${module.openvpn.instance_external_ip_random[0]}" | tee -a /tmp/openvpn.ini;
-      ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u debian -i /tmp/openvpn.ini --private-key ~/.ssh/course -e vpn_user_list=${each.value} ../ansible/openvpn_client.yml;
+      ANSIBLE_CONFIG=../ansible/ansible.cfg ansible-playbook -u mems -i /tmp/openvpn.ini --private-key ~/.ssh/course -e vpn_user_list=${each.value} ../ansible/openvpn_client.yml;
       rm -f /tmp/openvpn.ini;
     EOT
   }
