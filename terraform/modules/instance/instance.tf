@@ -53,3 +53,24 @@ resource "openstack_compute_floatingip_associate_v2" "fip_assoc_fixed" {
   instance_id = openstack_compute_instance_v2.instance[count.index].id
 }
 
+locals {
+  device_names = ["/dev/sdb","/dev/sdc","/dev/sdd","/dev/sde","/dev/sdf","/dev/sdg"]
+}
+
+locals {
+  instance_volume_map =  merge([
+
+    for idxi, instance in openstack_compute_instance_v2.instance.*:
+    {
+      for idxv in range(var.instance_volumes_count):
+        "${instance.name}-volume-${idxv}" => {
+            instance_name     = instance.name
+            instance_id       = instance.id
+            volume_name       = "${instance.name}-volume-${idxv}"
+            device            = local.device_names[idxv]
+          }
+    }
+    
+  ]...)
+}
+

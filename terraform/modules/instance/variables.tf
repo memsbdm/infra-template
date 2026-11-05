@@ -63,3 +63,19 @@ variable "instance_internal_fixed_ip" {
   type = string
   default = ""
 }
+
+variable "instance_volumes_count" {
+  type = number
+  default = 0
+}
+
+variable "instance_volumes_size" {
+  type = number
+  default = 20
+}
+
+variable "instance_volumes_type" {
+  type = string
+  default = "CEPH_1_perf1"
+}
+
