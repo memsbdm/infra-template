@@ -10,4 +10,4 @@ vpn_key_email: "mehmetbdm@outlook.fr"
 vpn_key_ou: "mems"
 vpn_user_list:
   - mems
-destination_key: "/tmp/"
+vpn_destination_key: "/tmp/"

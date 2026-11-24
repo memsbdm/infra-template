@@ -17,9 +17,6 @@ resource "openstack_compute_instance_v2" "instance" {
   metadata        = var.metadatas
   user_data       = <<-CLOUDCONFIG
     #cloud-config
-    bootcmd:
-      - printf "[Resolve]\nDNS=8.8.8.8 1.1.1.1\n" > /etc/systemd/resolved.conf
-      - [systemctl, restart, systemd-resolved]
     users:
       - default
       - name: mems

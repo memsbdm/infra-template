@@ -5,7 +5,7 @@ resource "openstack_networking_router_v2" "rt1" {
 }
 
 module "network_internal" {
-  source          = "./modules/network"
+  source          = "../modules/network"
   network_name		= var.network_internal
   network_subnet_cidr	= var.network_subnet_cidr
   router_id		= openstack_networking_router_v2.rt1.id
