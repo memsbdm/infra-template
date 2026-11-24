@@ -9,3 +9,11 @@
   roles:
     - volumes
     - consul
+    - dns-common
+
+- name: consul agent
+  hosts: all,!meta-app_consul
+  become: true
+  roles:
+    - consul
+    - dns-common

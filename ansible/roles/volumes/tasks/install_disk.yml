@@ -3,6 +3,21 @@
     fstype: ext4
     dev: "{{ item.disk }}"
 
+- name: "create group {{item.owner}}"
+  ansible.builtin.group:
+    name: "{{ item.owner }}"
+    system: yes
+    state: present
+  when: item.owner is defined
+
+- name: "create user {{item.owner}}"
+  ansible.builtin.user:
+    name: "{{item.owner}}"
+    system: yes
+    shell: /sbin/nologin
+    state: present
+  when: item.owner is defined
+
 - name: ensure directory exists
   ansible.builtin.file:
     path: "{{ item.path }}"
@@ -18,6 +33,7 @@
     state: present
   check_mode: yes
   register: __volumes_result_path
+  changed_when: false
 
 - name: Dispaly uuid & store in variable
   command: blkid -s UUID -o value {{ item.disk }}
@@ -31,4 +47,4 @@
     fstype: ext4
     opts: rw,nofail,noatime,auto
     state: mounted
-  when: __volumes_result_path.changed
+  # when: __volumes_result_path.changed
