@@ -7,6 +7,7 @@ module "consul" {
   instance_network_internal   = var.network_internal
   instance_ssh_key = var.ssh_public_key_default_user
   public_floating_ip = false
+  instance_volumes_count = 1
   metadatas                   = {
     environment          = "dev",
     app                  = "consul"

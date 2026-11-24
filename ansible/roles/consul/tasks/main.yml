@@ -26,6 +26,7 @@
     mode: 0750
     owner: consul
     group: consul
+    recurse: yes
   loop:
     - "{{ consul_dir_data }}"
     - "{{ consul_dir_config }}"
