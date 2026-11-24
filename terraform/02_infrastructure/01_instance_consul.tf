@@ -8,7 +8,8 @@ module "consul" {
   instance_ssh_key = var.ssh_public_key_default_user
   public_floating_ip = false
   metadatas                   = {
-    environment          = "dev"
+    environment          = "dev",
+    app                  = "consul"
   }
 }
       
